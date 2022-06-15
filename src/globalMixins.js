@@ -3,15 +3,14 @@ import Vue from "vue";
 const globalMixins = {
   methods: {
     setDifficulty({ isHard, qty }) {
-      this.$store.dispatch("setDifficulty", isHard, qty);
+      this.$store.dispatch("setDifficulty", { isHard, qty });
       this.init(qty);
     },
     init(qty) {
-      this.$store.dispatch(
-        "init",
-        this.createNewColors(qty),
-        this.colors[this.pickColor()]
-      );
+      this.$store.dispatch("init", {
+        colors: this.createNewColors(qty),
+        pickedColor: this.colors[this.pickColor()],
+      });
     },
     createNewColors(numbers) {
       const arr = [];
@@ -46,11 +45,10 @@ const globalMixins = {
     },
     restart() {
       // this.colors = [];
-      this.$store.dispatch(
-        "init",
-        this.createNewColors(this.squareQty),
-        this.colors[this.pickColor()]
-      );
+      this.$store.dispatch("init", {
+        colors: this.createNewColors(this.squareQty),
+        pickedColor: this.colors[this.pickColor()],
+      });
 
       // pickedColor = this.colors[this.pickColor()];
       // colorDisplay.textContent = pickedColor;

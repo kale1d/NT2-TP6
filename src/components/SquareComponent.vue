@@ -12,7 +12,7 @@
 
 export default {
   name: 'square-component',
-  props: ['color', 'pickedColor'],
+  props: ["color"],
   mounted() {
 
   },

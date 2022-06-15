@@ -13,11 +13,12 @@ export default new Vuex.Store({
     message: "",
   },
   actions: {
-    setDifficulty({ commit }, isHard, qty) {
+    setDifficulty({ commit }, { isHard, qty }) {
+      console.log(qty);
       commit("setIsHard", isHard);
       commit("setQty", qty);
     },
-    init({ commit }, colors, pickedColor) {
+    init({ commit }, { colors, pickedColor }) {
       commit("setColors", colors);
       commit("setPickedColor", pickedColor);
       // this.colors = this.createNewColors(qty);

@@ -2,7 +2,7 @@
 
   <section class="container-component">
     <div id="container">
-      <SquareComponent v-for="(square, index) in squareQty" :key="index" />
+      <SquareComponent v-for="(_, index) in squareQty" :key="index" :color="colors[index]" />
     </div>
 
   </section>
@@ -18,6 +18,7 @@ export default {
   components: { SquareComponent },
   props: [],
   updated() {
+    console.log(this.squareQty)
   },
   data() {
     return {
