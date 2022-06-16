@@ -3,14 +3,24 @@ import Vue from "vue";
 const globalMixins = {
   methods: {
     setDifficulty({ isHard, qty }) {
+      //   const squareStatus = this.getSquareStatus(qty);
       this.$store.dispatch("setDifficulty", { isHard, qty });
       this.init(qty);
     },
     init(qty) {
+      const colors = this.createNewColors(qty);
       this.$store.dispatch("init", {
-        colors: this.createNewColors(qty),
-        pickedColor: this.colors[this.pickColor()],
+        colors: colors,
+        pickedColor: colors[this.pickColor()],
       });
+    },
+    getSquareStatus(qty) {
+      console.log(qty);
+      const arr = [];
+      for (let index = 0; index < qty; index++) {
+        arr.push(false);
+      }
+      return arr;
     },
     createNewColors(numbers) {
       const arr = [];
@@ -66,10 +76,10 @@ const globalMixins = {
         msg = "You win";
       } else {
         msg = "Choose another color";
-        this.isWrong = true;
+        this.status = true;
       }
-      this.$store.$dispatch("selectedColor", this.color);
-      this.$store.$dispatch("message", msg);
+      this.$store.dispatch("selectedColor", this.color);
+      this.$store.dispatch("message", msg);
     },
   },
   computed: {
@@ -92,6 +102,9 @@ const globalMixins = {
     message() {
       return this.$store.state.message;
     },
+    // squareStatus() {
+    //   return this.$store.state.squareStatus;
+    // },
   },
 };
 

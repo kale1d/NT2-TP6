@@ -18,7 +18,7 @@ export default {
   components: { SquareComponent },
   props: [],
   updated() {
-    console.log(this.squareQty)
+
   },
   data() {
     return {
