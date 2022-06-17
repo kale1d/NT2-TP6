@@ -2,7 +2,8 @@
 
   <section class="container-component">
     <div id="container">
-      <SquareComponent v-for="(_, index) in squareQty" :key="index" :color="colors[index]" />
+      <SquareComponent v-for="(_, index) in squareQty" :key="index" :color="colors[index]" :status="squareStatus[index]"
+        :index="index" />
     </div>
 
   </section>

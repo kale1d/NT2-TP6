@@ -11,18 +11,20 @@ export default new Vuex.Store({
     selectedColor: "",
     pickedColor: "",
     message: "",
+    squareStatus: [],
   },
   actions: {
     setDifficulty({ commit }, { isHard, qty }) {
-      console.log(qty);
       commit("setIsHard", isHard);
       commit("setQty", qty);
     },
-    init({ commit }, { colors, pickedColor }) {
+    init({ commit }, { colors, pickedColor, squareStatus }) {
+      commit("setSquareStatus", squareStatus);
       commit("setColors", colors);
       commit("setPickedColor", pickedColor);
-      // this.colors = this.createNewColors(qty);
-      //   this.pickedColor = this.colors[this.pickColor()];
+    },
+    changeSquareStatus({ commit }, squareStatus) {
+      commit("setSquareStatus", squareStatus);
     },
     message({ commit }, message) {
       commit("setMessage", message);
@@ -49,6 +51,9 @@ export default new Vuex.Store({
     },
     setSelectedColor(state, selectedColor) {
       state.selectedColor = selectedColor;
+    },
+    setSquareStatus(state, squareStatus) {
+      state.squareStatus = squareStatus;
     },
   },
 });

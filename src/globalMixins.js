@@ -3,7 +3,6 @@ import Vue from "vue";
 const globalMixins = {
   methods: {
     setDifficulty({ isHard, qty }) {
-      //   const squareStatus = this.getSquareStatus(qty);
       this.$store.dispatch("setDifficulty", { isHard, qty });
       this.init(qty);
     },
@@ -12,10 +11,10 @@ const globalMixins = {
       this.$store.dispatch("init", {
         colors: colors,
         pickedColor: colors[this.pickColor()],
+        squareStatus: this.getSquareStatus(qty),
       });
     },
     getSquareStatus(qty) {
-      console.log(qty);
       const arr = [];
       for (let index = 0; index < qty; index++) {
         arr.push(false);
@@ -54,29 +53,32 @@ const globalMixins = {
       return Math.floor(Math.random() * quantity);
     },
     restart() {
-      // this.colors = [];
-      this.$store.dispatch("init", {
-        colors: this.createNewColors(this.squareQty),
-        pickedColor: this.colors[this.pickColor()],
-      });
-
-      // pickedColor = this.colors[this.pickColor()];
-      // colorDisplay.textContent = pickedColor;
-      // this.textContent = "Pick New Colors!";
-      // header.style.backgroundColor = "steelblue";
-      // messageDisplay.textContent = "";
-      // restartButton.textContent = "New Colors!";
-      // for (var i = 0; i < squares.length; i++) {
-      //   squares[i].style.backgroundColor = colors[i];
-      // }
+      // const colors = this.createNewColors(this.squareQty);
+      // const pickedColor = colors[this.pickColor()];
+      // const squareQty = this.getSquareStatus(this.squareQty);
+      // console.log(pickedColor);
+      // this.$store.dispatch("init", {
+      //   colors: colors,
+      //   pickedColor: pickedColor,
+      //   squareQty: squareQty,
+      // });
+      this.init(this.squareQty);
     },
-    getColor() {
+    getColor(index) {
       let msg = "";
       if (this.pickedColor === this.color) {
         msg = "You win";
       } else {
         msg = "Choose another color";
-        this.status = true;
+        const statusUpdated = this.squareStatus.map((sq, i) => {
+          if (i != index && !sq) {
+            return (sq = false);
+          } else {
+            return (sq = true);
+          }
+        });
+
+        this.$store.dispatch("changeSquareStatus", statusUpdated);
       }
       this.$store.dispatch("selectedColor", this.color);
       this.$store.dispatch("message", msg);
@@ -102,9 +104,9 @@ const globalMixins = {
     message() {
       return this.$store.state.message;
     },
-    // squareStatus() {
-    //   return this.$store.state.squareStatus;
-    // },
+    squareStatus() {
+      return this.$store.state.squareStatus;
+    },
   },
 };
 

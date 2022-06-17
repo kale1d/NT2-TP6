@@ -1,8 +1,7 @@
 <template lang="html">
 
   <section class="square-component">
-    <div class="square" @click="getColor()" :class="isWrong && 'displayNone'"
-      :style="{ 'background-color': isWrong ? '#232323' : color }">
+    <div class="square" @click="getColor(index)" :style="{ 'background-color': status ? '#232323' : color }">
     </div>
   </section>
 
@@ -12,13 +11,13 @@
 
 export default {
   name: 'square-component',
-  props: ["color"],
+  props: ["color", "status", "index"],
   mounted() {
 
   },
   data() {
     return {
-      isWrong: false,
+      // isWrong: false,
     }
   },
   methods: {
